@@ -1,0 +1,34 @@
+---
+title: "Creating a data product - Course Project"
+author: "Mahesh Swaminathan"
+date: "March 16, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r echo=FALSE}
+suppressPackageStartupMessages(library(leaflet))
+suppressPackageStartupMessages(library(dplyr))
+```
+## A simple map of the National Mall in Washington DC
+
+### Click on popups for more information about the attraction
+
+```{r echo=FALSE}
+df<-data.frame(popup=c("National Mall", "Washington Monument", "Lincoln Memorial", "United States Capitol", "Jefferson Memorial", "National World War II Memorial", "National Air and Space Museum"),
+lat=c(38.8896, 38.8895, 38.8893, 38.8899, 38.8814, 38.8876, 38.8876),
+lng=c(-77.0230, -77.0353, -77.0502, -77.0091, -77.0365, -77.0465, -77.0199),
+url=c("https://en.wikipedia.org/wiki/National_Mall", "https://en.wikipedia.org/wiki/Washington_Monument", "https://en.wikipedia.org/wiki/Lincoln_Memorial", "https://en.wikipedia.org/wiki/United_States_Capitol", "https://en.wikipedia.org/wiki/Jefferson_Memorial","https://en.wikipedia.org/wiki/National_World_War_II_Memorial", "https://en.wikipedia.org/wiki/National_Air_and_Space_Museum"))
+
+df$content= paste(sep = "", "<b><a href=", df$url, ">", df$popup, "</a></b>")
+
+df %>% leaflet() %>% addTiles() %>% fitBounds(-80, 39, -76, 37) %>% addMarkers(df$lng, df$lat, popup=df$content) %>% setView(-77.0230, 38.8896, zoom=14)
+
+
+```
+
