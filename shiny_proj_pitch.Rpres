@@ -1,0 +1,40 @@
+Shiny Project Pitch
+========================================================
+author: Mahesh Swaminathan
+date: 3/31/2017
+autosize: true
+
+Summary
+========================================================
+
+My Shiny app allows a user to select features to regress against  miles per gallon (mpg) in the mtcars dataset. 
+
+- Inputs: A combination of weight (wt), horsepower (hp), and transmission type (am)
+- Outputs: Goodness of fit plots and a summary table for each selection set
+
+
+The mtcars dataset
+========================================================
+
+```{r}
+summary(mtcars)
+```
+
+Plot of mpg regressed against weight and horsepower
+========================================================
+
+```{r}
+fit <- lm(data=mtcars, mpg ~ wt + hp)
+
+par(mfrow=c(2,2)); plot(fit); par(mfrow=c(1,1))
+
+```
+Summary of fit of mpg against wt and hp
+========================================================
+
+```{r}
+summary(fit)$coef
+
+confint(fit)
+
+```
